@@ -1,18 +1,39 @@
-# 将你的 QQ 头像（或者微博头像）右上角加上红色的数字，类似于微信未读信息数量那种提示效果。 类似于图中效果
-# -*- coding:'utf-8' -*-
-
-import PIL
-from PIL import Image, ImageDraw, ImageFont
+# 做为 Apple Store App 独立开发者，你要搞限时促销，为你的应用生成激活码（或者优惠券），使用 Python 如何生成 200 个激活码（或者优惠券）？
+import random
+import os
 
 
-imageFile='test.jpg'
-im1=Image.open(imageFile)
+def detect_txt():
+    filename='Activation_code.txt'
 
-font=ImageFont.truetype('C:/Windows/Fonts/Arial.ttf', 30)
+    if os.path.exists(filename):
+        os.remove(filename)
 
-draw=ImageDraw.Draw(im1)
-draw.text((160,20),u"4", (255,0,0),font=font)
+def Activation_code(num,length):
 
 
-draw=ImageDraw.Draw(im1)
-im1.save('target_01.png')
+    f=open('Activation_code.txt','w')
+    f.write('%s activation code below:'%num +'\n\n')
+    f.close()
+
+    for i in range(num):
+
+        code=''
+
+        for j in range(length):
+
+            code+=str(random.choice([random.randrange(10), chr(random.randrange(97,123)), chr(random.randrange(65,91))]))
+
+        f=open('Activation_code.txt','a')
+        f.write('%s' %code+'\n')
+        f.close()
+
+    print('%s activation code created'%num)
+
+if __name__=='__main__':
+    num=200
+    length=10
+    detect_txt()
+    Activation_code(num,length)
+
+
